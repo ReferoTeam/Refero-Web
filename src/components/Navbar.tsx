@@ -1,7 +1,9 @@
 import { AppBar, Button, Toolbar, Typography, Box } from "@mui/material";
-import LoginIcon from '@mui/icons-material/Login';
+import { SignInButton } from "./SignInButton";
+import { SignOutButton } from "./SignOutButton";
+import { useState } from 'react'
 
-export default function Navbar() {
+export default function Navbar({isAuthenticated}: {isAuthenticated: Boolean}) {
 
   return (
     <Box sx={{ flexGrow: 1}}>
@@ -17,10 +19,7 @@ export default function Navbar() {
           >
             Refero
           </Typography>
-          <Button variant="outlined" endIcon={<LoginIcon/>} color="inherit" size="small" sx={{
-            backgroundColor: 'white',
-            color: 'primary.main'
-          }}>Login</Button>
+          { isAuthenticated ? <SignOutButton/> : <SignInButton /> }
         </Toolbar>
       </AppBar>
     </Box>
