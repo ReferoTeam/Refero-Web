@@ -1,29 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './routes/App';
-import { createBrowserRouter, RouterProvider} from 'react-router-dom'
-import ErrorPage from './error-page';
-import Dashboard from './routes/dashboard';
+import App from './App';
 import { PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
 import { msalConfig } from "./authconfig";
 
 const msalInstance = new PublicClientApplication(msalConfig);
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "dashboard",
-        element: <Dashboard />
-      }
-    ],
-  }
-])
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -31,7 +14,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <MsalProvider instance={msalInstance}>
-        <RouterProvider router={router}/>
+      <App />
     </MsalProvider>
   </React.StrictMode>
 );

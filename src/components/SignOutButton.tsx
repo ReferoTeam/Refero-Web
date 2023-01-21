@@ -1,7 +1,8 @@
 import React from "react";
 import { useMsal } from "@azure/msal-react";
 import { Button } from '@mui/material'
-import LoginIcon from '@mui/icons-material/Login'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 
 /**
  * Renders a button which, when selected, will redirect the page to the logout prompt
@@ -10,20 +11,26 @@ export const SignOutButton = () => {
     const { instance } = useMsal();
 
     const handleLogout = (logoutType: String) => {
-        if (logoutType === "popup") {
-            instance.logoutPopup({
+        if (logoutType === "redirect") {
+            instance.logoutRedirect({
                 postLogoutRedirectUri: "/",
-                mainWindowRedirectUri: "/" // redirects the top level app after logout
             });
         }
     }
 
     return (
-      <Button variant="outlined" endIcon={<LoginIcon/>} color="inherit" size="small" sx={{
+      <Button size="small" endIcon={<AccountCircleIcon/>}  sx={{
             backgroundColor: 'white',
-            color: 'primary.main'
+            color: '#5E5E5E',
+            font: 'Segoe UI',
+            fontWeight: 600,
+            background: '#FFFFFF',
+            border: '1px',
+            ":hover": {
+              background: '#F1F1F1'
+            }
           }}
-          onClick={() => handleLogout("popup")}
+          onClick={() => handleLogout("redirect")}
           >Sign Out</Button>
       );
 }
