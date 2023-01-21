@@ -25,7 +25,7 @@ export const SignInButton = () => {
     }
   }
 
-  async function fetchProfileData(loginRequest: any) {
+  function fetchProfileData(loginRequest: any) {
     const request = {
       account: accounts[0],
       ...loginRequest
