@@ -10,11 +10,10 @@ export async function callMsGraph(accessToken: any) {
     headers.append("Authorization", bearer);
 
     const options = {
-        method: "GET",
-        headers: headers
+      method: "GET",
+      headers: headers
     };
-
-    return fetch(graphConfig.graphMeEndpoint, options)
-        .then(response => response.json())
-        .catch(error => console.log(error));
+    const graphData = await fetch(graphConfig.graphMeEndpoint, options);
+    let data = graphData.json();
+    return data;
 }

@@ -5,32 +5,46 @@ import { Outlet, Route, BrowserRouter, Routes } from 'react-router-dom'
 import { useIsAuthenticated, useMsal, AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
 import Home from './routes/Home';
 import Dashboard from './routes/Dashboard';
-import { loginRequest } from './authconfig';
-import { callMsGraph } from './graph';
-import { Button } from '@mui/material';
+import { User } from './types';
+import { UserContext } from './contexts/UserContext';
 
 
 
 function App() {
   const isAuthenticated: Boolean = useIsAuthenticated();
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState<User>({
+    _id: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    description: '',
+    interests: [''],
+    attendingEvents: ['']
+  });
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData])
 
   return (
     <BrowserRouter>
-      <Navbar isAuthenticated={isAuthenticated} setUserData={setUserData}/>
-      <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="/dashboard" element={
-          <div>
-            <AuthenticatedTemplate>
-              <Dashboard />
-            </AuthenticatedTemplate>
-            <UnauthenticatedTemplate>
-              <div>not auth</div>
-            </UnauthenticatedTemplate>
-          </div>
-        } />
-      </Routes>
+      <UserContext.Provider value={{userData, setUserData}}>
+        <Navbar isAuthenticated={isAuthenticated}/>
+        <Routes>
+          <Route path="/" element={<Home />}/>
+          <Route path="/dashboard" element={
+            <div>
+              <AuthenticatedTemplate>
+                <Dashboard />
+              </AuthenticatedTemplate>
+              <UnauthenticatedTemplate>
+                <div>not auth</div>
+              </UnauthenticatedTemplate>
+            </div>
+          } />
+        </Routes>
+      </UserContext.Provider>
+
     </BrowserRouter>
 
   );
