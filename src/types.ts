@@ -21,6 +21,17 @@ export type Event = {
   datetime: Date,
   duration: Number,
   userEmail: String,
-  eventInterests: [String],
-  attendingUsers: [String]
+  eventInterests: String[],
+  attendingUsers: String[]
+}
+
+export type EventData = {
+  _id: String,
+  eventname: String,
+  description: String,
+  location: String,
+  datetime: Date,
+  duration: Number,
+  userEmail: String,
+  userCount: Number
 }

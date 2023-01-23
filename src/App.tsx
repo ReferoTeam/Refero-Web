@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
-import { Outlet, Route, BrowserRouter, Routes } from 'react-router-dom'
-import { useIsAuthenticated, useMsal, AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
+import { Route, BrowserRouter, Routes } from 'react-router-dom'
+import { useIsAuthenticated, AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
 import Home from './routes/Home';
 import Dashboard from './routes/Dashboard';
 import { User } from './types';
 import { UserContext } from './contexts/UserContext';
+import Footer from './components/Footer';
 
 
 
@@ -43,6 +44,7 @@ function App() {
             </div>
           } />
         </Routes>
+        <Footer />
       </UserContext.Provider>
 
     </BrowserRouter>
